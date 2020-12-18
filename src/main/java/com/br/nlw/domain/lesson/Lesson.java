@@ -27,7 +27,7 @@ public class Lesson {
 	@NotEmpty(message = "Campo vazio")
 	private String whatsApp;
 	
-	@NotEmpty(message = "jfkdsjflk")
+	@NotEmpty(message = "Campo vazio")
 	private String bio;
 	
 	@NotEmpty
