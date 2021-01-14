@@ -5,8 +5,7 @@ import java.time.LocalTime;
 
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.br.nlw.domain.lesson.Lesson;
@@ -20,20 +19,22 @@ public class InsertTestData {
 	private final LessonRepository lessonRepository;
 	
 	private final AppUserRepository appUserRepository;
-
-	public InsertTestData(LessonRepository lessonRepository, AppUserRepository appUserRepository) {
+	
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	public InsertTestData(LessonRepository lessonRepository, AppUserRepository appUserRepository,
+			BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.lessonRepository = lessonRepository;
 		this.appUserRepository = appUserRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
-	
+
 	@EventListener
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		
-		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		
-		AppUser user = new AppUser("diogo", "silva", "diogo@", encoder.encode("bca"));
+		AppUser user = new AppUser("diogo", "silva", "diogo@", bCryptPasswordEncoder.encode("cba"));
 		appUserRepository.save(user);
-		AppUser user2 = new AppUser("diogo2", "djfksdjf", "@diogo", encoder.encode("abc"));
+		AppUser user2 = new AppUser("diogo2", "djfksdjf", "@diogo", bCryptPasswordEncoder.encode("abc"));
 		appUserRepository.save(user2);
 		
 		LocalTime horas = LocalTime.now();

@@ -1,4 +1,4 @@
-package com.br.nlw.domain.user;
+package com.br.nlw.infrastructure.web.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.nlw.domain.service.ServiceUser;
+import com.br.nlw.domain.user.AppUser;
+import com.br.nlw.domain.user.DuplicateUserException;
 
 @RestController
 @RequestMapping("/user")
