@@ -37,6 +37,9 @@ public class Lesson {
 	private BigDecimal value;
 	
 	@NotNull
+	private Integer weekDay;
+	
+	@NotNull
 	private LocalTime startHour;
 	
 	@NotNull
@@ -51,11 +54,12 @@ public class Lesson {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Lesson(String whatsApp, String bio, String theme, BigDecimal value, LocalTime startHour, LocalTime finishHour) {
+	public Lesson(String whatsApp, String bio, String theme, BigDecimal value, Integer weekDay, LocalTime startHour, LocalTime finishHour) {
 		this.whatsApp = whatsApp;
 		this.bio = bio;
 		this.theme = theme;
 		this.value = value;
+		this.weekDay = weekDay;
 		this.startHour = startHour;
 		this.finishHour = finishHour;
 	}
@@ -102,6 +106,14 @@ public class Lesson {
 
 	public void setAppUser(AppUser appUser) {
 		this.appUser = appUser;
+	}
+	
+	public Integer getWeekDay() {
+		return weekDay;
+	}
+	
+	public void setWeekDay(Integer weekDay) {
+		this.weekDay = weekDay;
 	}
 	
 	public LocalTime getStartHour() {
