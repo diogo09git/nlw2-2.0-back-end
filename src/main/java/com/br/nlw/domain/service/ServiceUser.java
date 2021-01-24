@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.br.nlw.domain.user.AppUser;
 import com.br.nlw.domain.user.AppUserRepository;
-import com.br.nlw.domain.user.DuplicateUserException;
+import com.br.nlw.domain.user.UserException;
 
 @Service
 public class ServiceUser {
@@ -20,14 +20,14 @@ public class ServiceUser {
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	public void validateEmail(AppUser appUser) throws DuplicateUserException {
+	public void validateEmail(AppUser appUser) throws UserException {
 		
 		AppUser userDB = appUserRepository.findByEmail(appUser.getEmail());
 		
 		if(userDB != null) {
-			if(userDB.getEmail().equals(appUser.getEmail())) {
-				throw new DuplicateUserException("Este e-mail já foi cadastrado, tente novamente !");
-			}
+			//if(userDB.getEmail().equals(appUser.getEmail())) {
+				throw new UserException("Este e-mail já foi cadastrado, tente novamente !");
+			//}
 		}
 		
 		appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
