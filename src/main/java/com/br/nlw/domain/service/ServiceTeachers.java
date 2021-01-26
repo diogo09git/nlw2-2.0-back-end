@@ -1,11 +1,11 @@
 package com.br.nlw.domain.service;
 
-import java.util.Optional;
-
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.br.nlw.domain.lesson.Lesson;
 import com.br.nlw.domain.lesson.LessonRepository;
+import com.br.nlw.domain.user.UserException;
 
 @Service
 public class ServiceTeachers {
@@ -16,8 +16,14 @@ public class ServiceTeachers {
 		this.lessonRepository = lessonRepository;
 	}
 
-	public Optional<Lesson> findByWeekDay(Integer id) {
+	public List<Lesson> findByWeekDay(String theme, Integer day) throws UserException {
 		
-		return lessonRepository.findByWeekDay(id);
+		List<Lesson> teacherBD = lessonRepository.findByThemeAndWeekDay(theme, day);
+		
+		if(teacherBD.isEmpty()) {
+			throw new UserException("Nenhuma aula cadastrada com essa descrição");
+		}
+		
+		return teacherBD;
 	}
 }

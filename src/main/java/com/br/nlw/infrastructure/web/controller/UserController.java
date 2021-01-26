@@ -1,5 +1,6 @@
 package com.br.nlw.infrastructure.web.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -34,13 +35,14 @@ public class UserController {
 		serviceUser.validateEmail(appUser);
 	}
 	
-	@GetMapping("/teachers/{id}")
-	public ResponseEntity<Lesson> searchTeachers(@PathVariable Integer id) throws Exception {
+	@GetMapping("/teachers/{theme}/{day}")
+	public ResponseEntity<List<Lesson>> searchTeachers(@PathVariable String theme,
+			@PathVariable Integer day) throws UserException {
 		
-		Optional<Lesson> weekDay = serviceTeachers.findByWeekDay(id);
+		Optional<List<Lesson>> weekDay = Optional.of(serviceTeachers.findByWeekDay(theme, day));
 		
 		return weekDay.map(resp -> ResponseEntity.ok().body(resp))
-				.orElseThrow(() -> new UserException("Nenhuma aula cadastrada com essa descrição"));
+				.orElse(ResponseEntity.badRequest().build());
 	}
 }
 

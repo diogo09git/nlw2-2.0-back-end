@@ -45,6 +45,10 @@ public class InsertTestData {
 		lesson.setAppUser(user);
 		lessonRepository.save(lesson);
 		
+		Lesson lesson1 = new Lesson("45488", "usuario 0", "math", b1, 0, horas, horas);
+		lesson1.setAppUser(user2);
+		lessonRepository.save(lesson1);
+		
 		Lesson lesson2 = new Lesson("38838", "usuario 2", "math", b1, 0, horas, horas);
 		lesson2.setAppUser(user2);
 		lessonRepository.save(lesson2);
