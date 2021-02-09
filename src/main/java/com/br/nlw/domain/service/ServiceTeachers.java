@@ -16,7 +16,7 @@ public class ServiceTeachers {
 		this.lessonRepository = lessonRepository;
 	}
 
-	public List<Lesson> findByWeekDay(String theme, Integer day) throws UserException {
+	public List<Lesson> findByWeekDay(String theme, String day) throws UserException {
 		
 		List<Lesson> teacherBD = lessonRepository.findByThemeAndWeekDay(theme, day);
 		

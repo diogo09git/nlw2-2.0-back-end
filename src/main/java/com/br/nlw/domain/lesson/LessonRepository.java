@@ -13,6 +13,6 @@ public interface LessonRepository extends CrudRepository<Lesson, Integer>{
 	Lesson findByBio(String bio);
 	
 	@Query("SELECT i FROM Lesson i WHERE i.theme = ?1 and i.weekDay = ?2")
-	List<Lesson> findByThemeAndWeekDay(String theme, Integer day);
+	List<Lesson> findByThemeAndWeekDay(String theme, String day);
 	
 }

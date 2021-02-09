@@ -37,7 +37,7 @@ public class UserController {
 	
 	@GetMapping("/teachers/{theme}/{day}")
 	public ResponseEntity<List<Lesson>> searchTeachers(@PathVariable String theme,
-			@PathVariable Integer day) throws UserException {
+			@PathVariable String day) throws UserException {
 		
 		Optional<List<Lesson>> weekDay = Optional.of(serviceTeachers.findByWeekDay(theme, day));
 		
