@@ -41,15 +41,15 @@ public class InsertTestData {
 		
 		BigDecimal b1 = new BigDecimal(10.00);
 		
-		Lesson lesson = new Lesson("991723937", "usuario 1", "programacao", b1, "2", horas, horas);
+		Lesson lesson = new Lesson("991723937", "JAVA", "programacao", b1, "2", horas, horas);
 		lesson.setAppUser(user);
 		lessonRepository.save(lesson);
 		
-		Lesson lesson1 = new Lesson("45488", "usuario 0", "math", b1, "0", horas, horas);
+		Lesson lesson1 = new Lesson("45488", "PHP", "Biologia", b1, "0", horas, horas);
 		lesson1.setAppUser(user2);
 		lessonRepository.save(lesson1);
 		
-		Lesson lesson2 = new Lesson("38838", "usuario 2", "math", b1, "0", horas, horas);
+		Lesson lesson2 = new Lesson("38838", "PYTHON", "math", b1, "0", horas, horas);
 		lesson2.setAppUser(user2);
 		lessonRepository.save(lesson2);
 		

@@ -28,12 +28,13 @@ public class NlwBackendApplication implements RepositoryRestConfigurer {
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 		config.exposeIdsFor(Lesson.class);
 		
-		config.getCorsRegistry()
-			.addMapping("/**")
-			.allowedOrigins("*")
-			.allowedMethods("GET", "POST", "PUT", "DELETE");
-		
 		logger.info("...'2' nlw Repository CORS running ...");
+		
+//		config.getCorsRegistry()
+//			.addMapping("/**")
+//			.allowedOrigins("*")
+//			.allowedMethods("GET", "POST", "PUT", "DELETE");
+		
 		
 //		config.getExposureConfiguration()
 //			.forDomainType(AppUser.class)

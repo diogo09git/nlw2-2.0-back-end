@@ -14,7 +14,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.br.nlw.domain.user.AppUser;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @EntityListeners(LessonListener.class)
@@ -45,7 +44,6 @@ public class Lesson {
 	@NotNull
 	private LocalTime finishHour;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "app_user_id")
 	private AppUser appUser;
@@ -100,8 +98,8 @@ public class Lesson {
 		this.value = value;
 	}
 
-	public AppUser getAppUser() {
-		return appUser;
+	public String getAppUser() {
+		return appUser.getName();
 	}
 
 	public void setAppUser(AppUser appUser) {

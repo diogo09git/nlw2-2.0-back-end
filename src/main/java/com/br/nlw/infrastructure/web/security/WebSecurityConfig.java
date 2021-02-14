@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
@@ -36,8 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 			.httpBasic()
 		.and()
 			.authorizeRequests()
-				.antMatchers("/api/lesson/**/appUser").denyAll()
-				.antMatchers(HttpMethod.GET, "/api/user").denyAll()
+				.antMatchers("/lesson/**/appUser").denyAll()
+				.antMatchers(HttpMethod.GET, "/user").denyAll()
 				.antMatchers("/h2-console/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/register").permitAll()
 				.anyRequest().authenticated()
@@ -57,9 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/login")
+		registry.addMapping("/**")
 			.allowedOrigins("*")
-			.allowedMethods("POST")
+			.allowedMethods("POST", "GET", "DELETE", "PUT")
 			.exposedHeaders(SecurityConstants.AUTHORIZATION_HEADER);
 		
 		logger.info("...'5' nlw CORS setup running ...");
