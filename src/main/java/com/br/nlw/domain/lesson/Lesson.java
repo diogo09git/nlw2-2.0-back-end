@@ -1,8 +1,10 @@
 package com.br.nlw.domain.lesson;
 
 import java.math.BigDecimal;
-import java.time.LocalTime;
-
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.br.nlw.domain.schedule.Schedule;
 import com.br.nlw.domain.user.AppUser;
 
 @Entity
@@ -35,31 +38,25 @@ public class Lesson {
 	@NotNull
 	private BigDecimal value;
 	
-	@NotNull
-	private String weekDay;
-	
-	@NotNull
-	private LocalTime startHour;
-	
-	@NotNull
-	private LocalTime finishHour;
-	
 	@ManyToOne
 	@JoinColumn(name = "app_user_id")
 	private AppUser appUser;
+	
+	@ElementCollection
+	@CollectionTable(
+			name = "SCHEDULE",
+			joinColumns = @JoinColumn(name = "OWNER_ID"))
+	private List<Schedule> schedule = new ArrayList<>(0);
 	
 	public Lesson() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Lesson(String whatsApp, String bio, String theme, BigDecimal value, String weekDay, LocalTime startHour, LocalTime finishHour) {
+	public Lesson(String whatsApp, String bio, @NotEmpty String theme, @NotNull BigDecimal value) {
 		this.whatsApp = whatsApp;
 		this.bio = bio;
 		this.theme = theme;
 		this.value = value;
-		this.weekDay = weekDay;
-		this.startHour = startHour;
-		this.finishHour = finishHour;
 	}
 
 	public Integer getId() {
@@ -106,28 +103,12 @@ public class Lesson {
 		this.appUser = appUser;
 	}
 	
-	public String getWeekDay() {
-		return weekDay;
+	public void setSchedule(List<Schedule> schedule) {
+		this.schedule = schedule;
 	}
 	
-	public void setWeekDay(String weekDay) {
-		this.weekDay = weekDay;
+	public List<Schedule> getSchedule() {
+		return schedule;
 	}
 	
-	public LocalTime getStartHour() {
-		return startHour;
-	}
-
-	public void setStartHour(LocalTime startHour) {
-		this.startHour = startHour;
-	}
-
-	public LocalTime getFinishHour() {
-		return finishHour;
-	}
-
-	public void setFinishHour(LocalTime finishHour) {
-		this.finishHour = finishHour;
-	}
-
 }

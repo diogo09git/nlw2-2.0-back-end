@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.nlw.domain.lesson.Lesson;
@@ -23,7 +23,7 @@ public class UserController {
 	
 	private final ServiceUser serviceUser;
 	private final ServiceTeachers serviceTeachers;
-	
+
 	public UserController(ServiceUser serviceUser, ServiceTeachers serviceTeachers) {
 		this.serviceUser = serviceUser;
 		this.serviceTeachers = serviceTeachers;
@@ -35,13 +35,12 @@ public class UserController {
 		serviceUser.validateEmail(appUser);
 	}
 	
-	@GetMapping("/teachers/{theme}/{day}")
-	public ResponseEntity<List<Lesson>> searchTeachers(@PathVariable String theme,
-			@PathVariable String day) throws UserException {
+	@GetMapping("/teachers")
+	public ResponseEntity<List<Lesson>> searchTeachers(@RequestParam String theme) throws UserException {
 		
-		Optional<List<Lesson>> weekDay = Optional.of(serviceTeachers.findByWeekDay(theme, day));
+		Optional<List<Lesson>> themeDa = Optional.of(serviceTeachers.findByTheme(theme));
 		
-		return weekDay.map(resp -> ResponseEntity.ok().body(resp))
+		return themeDa.map(resp -> ResponseEntity.ok().body(resp))
 				.orElse(ResponseEntity.badRequest().build());
 	}
 }

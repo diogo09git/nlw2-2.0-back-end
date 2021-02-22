@@ -9,21 +9,23 @@ import com.br.nlw.domain.user.UserException;
 
 @Service
 public class ServiceTeachers {
-
+	
 	private final LessonRepository lessonRepository;
 	
 	public ServiceTeachers(LessonRepository lessonRepository) {
 		this.lessonRepository = lessonRepository;
 	}
 
-	public List<Lesson> findByWeekDay(String theme, String day) throws UserException {
+	public List<Lesson> findByTheme(String theme) throws UserException {
 		
-		List<Lesson> teacherBD = lessonRepository.findByThemeAndWeekDay(theme, day);
+		List<Lesson> lessonDB = lessonRepository.findByTheme(theme); 
 		
-		if(teacherBD.isEmpty()) {
+		if(lessonDB.isEmpty()) {
 			throw new UserException("Nenhuma aula cadastrada com essa descrição");
 		}
 		
-		return teacherBD;
+		return lessonDB;
 	}
+	
+	
 }
