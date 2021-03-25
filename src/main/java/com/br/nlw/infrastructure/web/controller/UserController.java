@@ -38,11 +38,12 @@ public class UserController {
 	@GetMapping("/teachers")
 	public ResponseEntity<List<Lesson>> searchTeachers(@RequestParam String theme) throws UserException {
 		
-		Optional<List<Lesson>> themeDa = Optional.of(serviceTeachers.findByTheme(theme));
+		Optional<List<Lesson>> themeDB = Optional.of(serviceTeachers.findByTheme(theme));
 		
-		return themeDa.map(resp -> ResponseEntity.ok().body(resp))
+		return themeDB.map(resp -> ResponseEntity.ok().body(resp))
 				.orElse(ResponseEntity.badRequest().build());
 	}
+	
 }
 
 

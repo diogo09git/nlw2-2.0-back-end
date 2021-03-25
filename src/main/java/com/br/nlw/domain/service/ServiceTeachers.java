@@ -18,10 +18,10 @@ public class ServiceTeachers {
 
 	public List<Lesson> findByTheme(String theme) throws UserException {
 		
-		List<Lesson> lessonDB = lessonRepository.findByTheme(theme); 
+		List<Lesson> lessonDB = lessonRepository.findByTheme(theme);
 		
 		if(lessonDB.isEmpty()) {
-			throw new UserException("Nenhuma aula cadastrada com essa descrição");
+			throw new UserException("Nenhuma aula encontrada !");
 		}
 		
 		return lessonDB;

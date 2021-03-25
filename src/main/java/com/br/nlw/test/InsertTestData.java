@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.br.nlw.domain.lesson.Lesson;
 import com.br.nlw.domain.lesson.LessonRepository;
 import com.br.nlw.domain.schedule.Schedule;
+import com.br.nlw.domain.schedule.ScheduleRepository;
 import com.br.nlw.domain.user.AppUser;
 import com.br.nlw.domain.user.AppUserRepository;
 
@@ -22,14 +23,17 @@ public class InsertTestData {
 	
 	private final AppUserRepository appUserRepository;
 	
+	private final ScheduleRepository scheduleRepository;
+	
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public InsertTestData(LessonRepository lessonRepository, AppUserRepository appUserRepository,
-		BCryptPasswordEncoder bCryptPasswordEncoder) {
-	this.lessonRepository = lessonRepository;
-	this.appUserRepository = appUserRepository;
-	this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-}
+			ScheduleRepository scheduleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+		this.lessonRepository = lessonRepository;
+		this.appUserRepository = appUserRepository;
+		this.scheduleRepository = scheduleRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
 
 	@EventListener
 	public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -45,23 +49,35 @@ public class InsertTestData {
 				+ "Apaixonado por explodir coisas em laboratório e por mudar a vida das pessoas através de experiências. "
 				+ "Mais de 200.000 pessoas já passaram por uma das minhas explosões.";
 		
+		List<Schedule> listSche = new ArrayList<Schedule>();
+//		List<Schedule> listSche1 = new ArrayList<Schedule>();
 		
 		Schedule sch = new Schedule("Segunda", "11:00", "12:00");
 		Schedule sch1 = new Schedule("Sexta", "13:00", "15:00");
-		List<Schedule> sche = new ArrayList<Schedule>();
-		sche.add(sch);
-		sche.add(sch1);
+		Schedule sch2 = new Schedule("Quarta", "17:00", "18:00");
 		
-		Lesson lesson = new Lesson("991723937", bioTest, "Biologia", b1);
+		listSche.add(sch);
+		listSche.add(sch1);
+		listSche.add(sch2);
+//		listSche1.add(sch);
+		
+		Lesson lesson = new Lesson("034991723937", bioTest, "Biologia", b1, listSche);
+		Lesson lesson0 = new Lesson("8888", bioTest, "Artes", b1, listSche);
+//		Lesson lesson1 = new Lesson("45488", bioTest, "Biologia", b1.add(b1), null);
+		
 		lesson.setAppUser(user);
-		lesson.setSchedule(sche);
 		lessonRepository.save(lesson);
 		
-		Lesson lesson1 = new Lesson("45488", bioTest, "Biologia", b1);
-		lesson1.setAppUser(user2);
-//		lesson1.setSchedule(sche);
-		lessonRepository.save(lesson1);
+		lesson0.setAppUser(user2);
+		lessonRepository.save(lesson0);
 		
+		sch.setLesson(lesson0);
+		scheduleRepository.save(sch);
+		sch1.setLesson(lesson0);
+		scheduleRepository.save(sch1);
+		sch2.setLesson(lesson);
+		scheduleRepository.save(sch2);
+	
 		
 	}
 }
