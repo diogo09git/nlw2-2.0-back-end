@@ -6,8 +6,8 @@ O projeto que se encontra neste repositório é a versão 2.0, foi um desafio pr
 
 ## Preview
 
-<img src="/github/home.png" width="900" height="500"/>
-<img src="/github/login.png" width="900" height="500"/>
+<img src="/src/main/resources/static/github/home.png" width="900" height="500"/>
+<img src="/src/main/resources/static/github/login.png" width="900" height="500"/>
 
 ## Tecnologias
 
@@ -23,21 +23,21 @@ O projeto que se encontra neste repositório é a versão 2.0, foi um desafio pr
 - Security with JWT
 - H2 Data Base
 
-[Link para o BackEnd](https://github.com/diogo09git/nlw2-2.0-back-end)
+[Link para o FrontEnd](https://github.com/diogo09git/nlw2-2.0-front-end)
 
 ### Rodando o projeto
 
 **1. Clonar o repositório**
 ```bash
-https://github.com/diogo09git/nlw2-2.0-front-end.git
+https://github.com/diogo09git/nlw2-2.0-back-end.git
 ```
-**2. Executar a Aplicação**
+**2. Executar o app diretamente na linha de comando utilizando Gradle**
 ```bash
+$ ./gradlew run
+```
 
-#Instalando as dependências do projeto
-$ npm install # ou yarn install
-
-#Iniciando o app web
-$npm start # ou yarn start
+**3. Empacotar o app utilizando Gradle**
+```bash
+$ ./gradlew build
 ```
 
