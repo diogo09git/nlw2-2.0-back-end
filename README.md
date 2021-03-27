@@ -17,13 +17,14 @@ O projeto que se encontra neste repositório é a versão 2.0, foi um desafio pr
 - HTML
 - CSS
 
+[Link para o FrontEnd](https://github.com/diogo09git/nlw2-2.0-front-end)
+
 ### Back-end
 - Java
 - Spring Boot
-- Security with JWT
+- Spring Data JPA
+- Spring Security with JWT
 - H2 Data Base
-
-[Link para o FrontEnd](https://github.com/diogo09git/nlw2-2.0-front-end)
 
 ### Rodando o projeto
 
