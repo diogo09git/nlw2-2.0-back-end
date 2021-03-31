@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 				.antMatchers("/lesson/**/appUser").denyAll()
 				.antMatchers(HttpMethod.GET, "/user").denyAll()
 				.antMatchers("/h2-console/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/user/register").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/users").permitAll()
 				.anyRequest().authenticated()
 		.and()
 			.addFilter(new JWTAuthenticationFilter(authenticationManager()))

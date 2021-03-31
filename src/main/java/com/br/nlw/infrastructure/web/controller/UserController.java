@@ -3,6 +3,7 @@ package com.br.nlw.infrastructure.web.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ import com.br.nlw.domain.user.AppUser;
 import com.br.nlw.domain.user.UserException;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api")
 public class UserController {
 	
 	private final ServiceUser serviceUser;
@@ -29,10 +30,12 @@ public class UserController {
 		this.serviceTeachers = serviceTeachers;
 	}
 
-	@PostMapping("/register")
-	public void register(@RequestBody AppUser appUser) throws UserException {
+	@PostMapping("/users")
+	public ResponseEntity<AppUser> saveUser(@RequestBody AppUser appUser) throws UserException {
 		
 		serviceUser.validateEmail(appUser);
+		
+		return new ResponseEntity<AppUser>(appUser, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/teachers")
