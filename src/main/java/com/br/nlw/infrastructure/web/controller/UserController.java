@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.nlw.domain.lesson.Lesson;
+import com.br.nlw.domain.lesson.LessonRepository;
 import com.br.nlw.domain.service.ServiceTeachers;
 import com.br.nlw.domain.service.ServiceUser;
 import com.br.nlw.domain.user.AppUser;
@@ -24,18 +25,12 @@ public class UserController {
 	
 	private final ServiceUser serviceUser;
 	private final ServiceTeachers serviceTeachers;
+	private final LessonRepository lessonRepository;
 
-	public UserController(ServiceUser serviceUser, ServiceTeachers serviceTeachers) {
+	public UserController(ServiceUser serviceUser, ServiceTeachers serviceTeachers, LessonRepository lessonRepository) {
 		this.serviceUser = serviceUser;
 		this.serviceTeachers = serviceTeachers;
-	}
-
-	@PostMapping("/users")
-	public ResponseEntity<AppUser> saveUser(@RequestBody AppUser appUser) throws UserException {
-		
-		serviceUser.validateEmail(appUser);
-		
-		return new ResponseEntity<AppUser>(appUser, HttpStatus.CREATED);
+		this.lessonRepository = lessonRepository;
 	}
 	
 	@GetMapping("/teachers")
@@ -45,6 +40,21 @@ public class UserController {
 		
 		return themeDB.map(resp -> ResponseEntity.ok().body(resp))
 				.orElse(ResponseEntity.badRequest().build());
+	}
+
+	@PostMapping("/lessons")
+	public ResponseEntity<Lesson> saveLesson(@RequestBody Lesson lesson) {
+		
+		lessonRepository.save(lesson);
+		return new ResponseEntity<Lesson>(lesson, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/users")
+	public ResponseEntity<AppUser> saveUser(@RequestBody AppUser appUser) throws UserException {
+		
+		serviceUser.validateEmail(appUser);
+		
+		return new ResponseEntity<AppUser>(appUser, HttpStatus.CREATED);
 	}
 	
 }

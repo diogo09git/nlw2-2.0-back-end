@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -42,14 +43,11 @@ public class Lesson {
 	@JoinColumn(name = "app_user_id")
 	private AppUser appUser;
 	
-	@OneToMany(mappedBy = "lesson")
-	private List<Schedule> schedule = new ArrayList<Schedule>(0);
-	
-//	@ElementCollection
-//	@CollectionTable(
-//			name = "SCHEDULE",
-//			joinColumns = @JoinColumn(name = "OWNER_ID"))
-//	private List<Schedule> schedule = new ArrayList<>(0);
+	@ElementCollection
+	@CollectionTable(
+			name = "SCHEDULE",
+			joinColumns = @JoinColumn(name = "OWNER_ID"))
+	private List<Schedule> schedule = new ArrayList<>(0);
 	
 	public Lesson() {
 		// TODO Auto-generated constructor stub
@@ -99,8 +97,8 @@ public class Lesson {
 		this.value = value;
 	}
 
-	public String getAppUser() {
-		return appUser.getName();
+	public AppUser getAppUser() {
+		return appUser;
 	}
 
 	public void setAppUser(AppUser appUser) {

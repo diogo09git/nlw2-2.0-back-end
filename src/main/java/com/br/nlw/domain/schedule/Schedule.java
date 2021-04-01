@@ -1,28 +1,15 @@
 package com.br.nlw.domain.schedule;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.Embeddable;
 
-import com.br.nlw.domain.lesson.Lesson;
-
-@Entity
+@Embeddable
 public class Schedule {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
 	
 	private String weekDay;
 	
 	private String startHour;
 	
 	private String finishHour;
-	
-	@ManyToOne()
-	private Lesson lesson;
 	
 	public Schedule() {
 	}
@@ -57,11 +44,4 @@ public class Schedule {
 		this.finishHour = finishHour;
 	}
 	
-	public void setLesson(Lesson lesson) {
-		this.lesson = lesson;
-	}
-	
-//	public Lesson getLesson() {
-//		return lesson;
-//	}
 }

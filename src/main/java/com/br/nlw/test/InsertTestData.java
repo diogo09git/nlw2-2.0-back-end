@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import com.br.nlw.domain.lesson.Lesson;
 import com.br.nlw.domain.lesson.LessonRepository;
 import com.br.nlw.domain.schedule.Schedule;
-import com.br.nlw.domain.schedule.ScheduleRepository;
 import com.br.nlw.domain.user.AppUser;
 import com.br.nlw.domain.user.AppUserRepository;
 
@@ -23,15 +22,14 @@ public class InsertTestData {
 	
 	private final AppUserRepository appUserRepository;
 	
-	private final ScheduleRepository scheduleRepository;
+//	private final ScheduleRepository scheduleRepository;
 	
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public InsertTestData(LessonRepository lessonRepository, AppUserRepository appUserRepository,
-			ScheduleRepository scheduleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+			BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.lessonRepository = lessonRepository;
 		this.appUserRepository = appUserRepository;
-		this.scheduleRepository = scheduleRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
@@ -52,6 +50,7 @@ public class InsertTestData {
 		List<Schedule> listSche = new ArrayList<Schedule>();
 //		List<Schedule> listSche1 = new ArrayList<Schedule>();
 		
+		
 		Schedule sch = new Schedule("Segunda", "11:00", "12:00");
 		Schedule sch1 = new Schedule("Sexta", "13:00", "15:00");
 		Schedule sch2 = new Schedule("Quarta", "17:00", "18:00");
@@ -63,7 +62,7 @@ public class InsertTestData {
 		
 		Lesson lesson = new Lesson("034991723937", bioTest, "Biologia", b1, listSche);
 		Lesson lesson0 = new Lesson("8888", bioTest, "Artes", b1, listSche);
-//		Lesson lesson1 = new Lesson("45488", bioTest, "Biologia", b1.add(b1), null);
+//		Lesson lesson1 = new Lesson("45488", bioTest, "Biologia", b1.add(b1), null);		
 		
 		lesson.setAppUser(user);
 		lessonRepository.save(lesson);
@@ -71,12 +70,12 @@ public class InsertTestData {
 		lesson0.setAppUser(user2);
 		lessonRepository.save(lesson0);
 		
-		sch.setLesson(lesson0);
-		scheduleRepository.save(sch);
-		sch1.setLesson(lesson0);
-		scheduleRepository.save(sch1);
-		sch2.setLesson(lesson);
-		scheduleRepository.save(sch2);
+//		sch.setLesson(lesson0);
+//		scheduleRepository.save(sch);
+//		sch1.setLesson(lesson0);
+//		scheduleRepository.save(sch1);
+//		sch2.setLesson(lesson);
+//		scheduleRepository.save(sch2);
 	
 		
 	}
