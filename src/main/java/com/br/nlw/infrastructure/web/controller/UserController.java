@@ -37,7 +37,6 @@ public class UserController {
 	public ResponseEntity<List<Lesson>> searchTeachers(@RequestParam String theme) throws UserException {
 		
 		Optional<List<Lesson>> themeDB = Optional.of(serviceTeachers.findByTheme(theme));
-		
 		return themeDB.map(resp -> ResponseEntity.ok().body(resp))
 				.orElse(ResponseEntity.badRequest().build());
 	}
@@ -53,7 +52,6 @@ public class UserController {
 	public ResponseEntity<AppUser> saveUser(@RequestBody AppUser appUser) throws UserException {
 		
 		serviceUser.validateEmail(appUser);
-		
 		return new ResponseEntity<AppUser>(appUser, HttpStatus.CREATED);
 	}
 	

@@ -48,24 +48,27 @@ public class InsertTestData {
 				+ "Mais de 200.000 pessoas já passaram por uma das minhas explosões.";
 		
 		List<Schedule> listSche = new ArrayList<Schedule>();
-//		List<Schedule> listSche1 = new ArrayList<Schedule>();
+		List<Schedule> listSche1 = new ArrayList<Schedule>();
 		
 		
 		Schedule sch = new Schedule("Segunda", "11:00", "12:00");
 		Schedule sch1 = new Schedule("Sexta", "13:00", "15:00");
 		Schedule sch2 = new Schedule("Quarta", "17:00", "18:00");
 		
-		listSche.add(sch);
+//		listSche.add(sch);
 		listSche.add(sch1);
 		listSche.add(sch2);
-//		listSche1.add(sch);
+		listSche1.add(sch);
 		
 		Lesson lesson = new Lesson("034991723937", bioTest, "Biologia", b1, listSche);
-		Lesson lesson0 = new Lesson("8888", bioTest, "Artes", b1, listSche);
-//		Lesson lesson1 = new Lesson("45488", bioTest, "Biologia", b1.add(b1), null);		
+		Lesson lesson0 = new Lesson("8888", bioTest, "Artes", b1, listSche1);
+		Lesson lesson1 = new Lesson("45488", bioTest, "Biologia", b1.add(b1), listSche1);	
 		
 		lesson.setAppUser(user);
 		lessonRepository.save(lesson);
+		
+		lesson1.setAppUser(user2);
+		lessonRepository.save(lesson1);
 		
 		lesson0.setAppUser(user2);
 		lessonRepository.save(lesson0);

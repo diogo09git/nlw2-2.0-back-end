@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 
 @Entity
 @Table(name = "app_user")
@@ -13,18 +16,22 @@ public class AppUser {
 
 	@Id
 	@GeneratedValue
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private Integer id;
 	
 	@NotEmpty
 	private String name;
 	
 	@NotEmpty
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String lastName;
 	
 	@NotEmpty
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String email;
 	
 	@NotEmpty
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	
 	public AppUser() {
