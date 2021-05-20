@@ -1,6 +1,7 @@
 package com.br.nlw.infrastructure.web.security;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -13,6 +14,9 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
@@ -27,7 +31,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		
 		String token = request.getHeader(SecurityConstants.AUTHORIZATION_HEADER);
 		
-		if(token != null && token.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+		if(token != null && token.startsWith(SecurityConstants.TOKEN_PREFIX) && validateToken(token)) {
 			UsernamePasswordAuthenticationToken authentication = getAuthentication(token);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
@@ -39,7 +43,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		
 		String user = Jwts.parser()
 			.setSigningKey(SecurityConstants.THE_SECRET_KEY)
-			.parseClaimsJws(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
+			.parseClaimsJws(token.replace(SecurityConstants.TOKEN_PREFIX, "").trim())
 			.getBody().getSubject();
 		
 		if(user != null) {
@@ -47,6 +51,22 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		}
 		
 		return null;
+	}
+	
+	private boolean validateToken(String token) {
+		try {
+			Jws<Claims> claims = Jwts.parser()
+					.setSigningKey(SecurityConstants.THE_SECRET_KEY)
+					.parseClaimsJws(token.replace(SecurityConstants.TOKEN_PREFIX, "").trim());
+			
+			if(claims.getBody().getExpiration().before(new Date())) {
+				return false;
+			}
+			return true;
+			
+		} catch (JwtException | IllegalArgumentException e) {
+			throw new IllegalArgumentException("Expired or invalid JWT token");
+		}
 	}
 
 }

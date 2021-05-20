@@ -51,6 +51,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
 		
 		String jwtToken = Jwts.builder()
+			.setIssuedAt(new Date(System.currentTimeMillis()))
 			.setSubject(userDetails.getEmail())
 			.setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
 			.claim("name", userDetails.getUsername())
